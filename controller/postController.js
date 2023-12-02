@@ -3,8 +3,11 @@ import user from '../models/user.js';
 import like from '../models/like.js';
 import comments from '../models/comments.js';
 
+//La classe Poste
 
-class POST{
+class POSTS{
+
+	//méthode pour créer un post
 	static async create(req,res){
 		const {_id} = req.auth;
 		const userExist = user.findById(_id);
@@ -19,7 +22,7 @@ class POST{
 		const postcre = await posts.create({
 			...req.body
 		})
-		await userExist.updateOne({postid: postcre._id})
+		await userExist.updateOne({postId: postcre._id})
 		res.status(201)
 			.json({
 				statut:true,
@@ -28,12 +31,13 @@ class POST{
 			
 
 	}
+	//méthode pour modifier un post
 	static async update(req,res){
 
 		const {_id} = req.auth;
-		const {_id} = req.params;
+		const {id} = req.params;
 		const userExist = await user.findById(_id);
-		const postExist = await posts.findById(_id);
+		const postExist = await posts.findOne({_id:id});
 		if(!userExist){
 			res.status(404)
 			.json({
@@ -59,12 +63,13 @@ class POST{
 			})
 		
 	}
+	//méthode pour supprimer un post
 	static async delete(req,res){
 		try{
 			const {_id} = req.auth;
-			const {_id} = req.params;
+			const {id} = req.params;
 			const userExist = await user.findById(_id);
-			const postExist = await posts.findById(_id);
+			const postExist = await posts.findOne({_id:id});
 			if(!userExist){
 				res.status(404)
 				.json({
@@ -94,11 +99,12 @@ class POST{
 		}
 		
 	}
+	//méthode pour récupérer un post en fonction de son ID
 	static async getId(req,res){
 			const {_id} = req.auth;
-			const {_id} = req.params;
+			const {id} = req.params;
 			const userExist = await user.findById(_id);
-			const postExist = await posts.findById(_id);
+			const postExist = await posts.findOne({_id:id});
 			if(!userExist){
 				res.status(404)
 				.json({
@@ -122,6 +128,7 @@ class POST{
 
 		
 	}
+	//méthode pour récupérer tout les posts
 	static async getAll(req,res){
 		const postExist = await posts.find();
 		res.status(200)
@@ -131,4 +138,4 @@ class POST{
 		})
 	}
 }
-export default POST
+export default POSTS

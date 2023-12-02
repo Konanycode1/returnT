@@ -1,8 +1,10 @@
-import user from '../model/user.js';
-import {hashMpd, compareMdp} from '../utils/bcrypt.js'
-import {genToken} from '../utlis/token.js'
+import user from '../models/user.js';
+import {hashMdp, compareMdp} from '../utils/bcrypt.js'
+import {genToken} from '../utils/token.js'
 
+//La classe de l'utilisateur
 class USER{
+	//méthode pour créer un utilisateur
 	static async create(req,res){
 		const {email,password,image, ...rest} = req.body;
 		const userExist = await user.findOne({email:email});
@@ -27,6 +29,8 @@ class USER{
 
 
 	}
+
+	//méthode pour se connecter à un utilisateur
 	static async login(req,res){
 		const {email, password} = req.body;
 		const userExist = user.findOne({email:email});
@@ -52,10 +56,10 @@ class USER{
 			token: await genToken(userExist.toObject()),
 			message:'connexion encours !!!'
 		})
-
-
 		
 	}
+
+	//méthode pour modifier un utilisateur
 	static async update(req,res){
 		try{
 
@@ -100,6 +104,7 @@ class USER{
 
 		
 	}
+	//méthode pour supprimer un utilisateur
 	static async delete(req,res){
 		try{
 
@@ -128,6 +133,8 @@ class USER{
 		}
 		
 	}
+
+	//méthode pour récuper un utilisateur en fonction de son ID lorsqu'il est connecté
 	static async getId(req,res){
 		const {_id} = req.auth;
 		const userExist = await user.findById(_id);
@@ -147,6 +154,7 @@ class USER{
 
 		
 	}
+	//méthode pour récuperer tout les utilisateur
 	static async getAll(req,res){
 		const userExist = await user.find();
 		res.status(200)

@@ -2,7 +2,11 @@ import comment from '../models/comments.js'
 import posts from '../models/post.js';
 import user from '../models/user.js';
 
+//La classe commentaire 
+
 class COMMENTS{
+
+	//méthode pour créer un commentaire
 	static async create(req,res){
 		const {_id} = req.auth;
 		const id = req.params;
@@ -37,6 +41,7 @@ class COMMENTS{
 			})
 
 	}
+	//méthode pour modifier un commentaire
 	static async update(req,res){
 		try{
 
@@ -74,6 +79,7 @@ class COMMENTS{
 		}
 		
 	}
+	//méthode pour supprimer un commentaire
 	static async delete(req,res){
 		try{
 
@@ -110,6 +116,7 @@ class COMMENTS{
 		}
 		
 	}
+	//méthode pour recupérer un commentaire avec son ID 
 	static async getId(req,res){
 		try{
 			const {_id} = req.auth;
@@ -145,6 +152,7 @@ class COMMENTS{
 		}
 		
 	}
+	//méthode pour récuper tout les commentaire de la BD
 	static async getAll(req,res){
 		const commentExist = await comment.find();
 		res.status(200)
@@ -152,7 +160,6 @@ class COMMENTS{
 			statut:true,
 			data: commentExist
 		})
-	}
 		
 	}
 }

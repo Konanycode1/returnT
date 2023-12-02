@@ -6,7 +6,7 @@ const userSchema = new Schema({
 	image : {type:String, requere:true},
 	contact : {type:String, requere:true, unique:true},
 	linkedin : {type:String, requere:true, unique:true},
-	password : {type:String, requere:true, length: 20}
+	password : {type:String, requere:true, length: 20},
 	postId: [
 		{
 			type: Schema.Types.ObjectId, ref:'posts'

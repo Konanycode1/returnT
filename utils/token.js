@@ -1,4 +1,4 @@
-import jwt, {sign, verify} from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 export const genToken = async (user)=>{
 	try{

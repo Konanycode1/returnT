@@ -1,9 +1,12 @@
 import like from '../models/like.js';
 import comments from '../models/comments.js'
-import user from '.../models/user.js'
-import post from '.../models/post.js'
+import user from '../models/user.js'
+import post from '../models/post.js';
 
+
+//La classe like
 class LIKE{
+	//méthode pour créer un like
 	static async create(req,res){
 		try{
 			const {_id} = req.auth;
@@ -51,6 +54,7 @@ class LIKE{
 	static async update(req,res){
 		
 	}
+	//méthode pour supprimer un like
 	static async delete(req,res){
 		const {_id} = req.auth;
 			const {id} = req.params;
@@ -83,7 +87,12 @@ class LIKE{
 		
 	}
 	static async getAll(req,res){
-		
+		const likeExist = await like.find();
+		res.status(200)
+		.json({
+			statut:true,
+			data: likeExist
+		})
 	}
 }
 export default LIKE
