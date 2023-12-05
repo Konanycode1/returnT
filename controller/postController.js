@@ -128,6 +128,35 @@ class POSTS{
 
 		
 	}
+	//méthode pour récupérer un post en fonction de l'utilisateur
+	static async getIdUser(req,res){
+			const {_id} = req.auth;
+			const {id} = req.params;
+			const userExist = await user.findById(_id);
+			if(!userExist){
+				res.status(404)
+				.json({
+					statut:false,
+					message:"User introuvable"
+				})
+				return
+			}
+			if(!postExist){
+				res.status(404)
+				.json({
+					statut:false, 
+					message:"post introuvable"
+				})
+				return
+			}
+			res.status(200).json({
+				statut: true,
+				data: postExist
+			})
+
+		
+	}
+
 	//méthode pour récupérer tout les posts
 	static async getAll(req,res){
 		const postExist = await posts.find();
